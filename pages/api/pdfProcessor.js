@@ -35,6 +35,8 @@ app.get("/api/pro", (r, re) => {
 app.post('/api/pdfProcessor', upload.single('pdfFile'), async (req, res) => {
     try {
       let { keywords } = req.body;
+        console.log(keywords)
+         
       const pdfFile = req.file.buffer;
       const pdfName = req.file.filename
   

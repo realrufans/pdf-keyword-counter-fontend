@@ -9,7 +9,7 @@ export default async (req, res) => {
   // Check if the file exists
   if (fs.existsSync(filePath)) {
     // Set the response headers for file download
-    res.setHeader('Content-Disposition', `attachment; filename=pdfResultsAt${Date.now()}.csv`);
+    res.setHeader('Content-Disposition', `attachment; filename=pdfResultsAt${Date.now().toString()}.csv`);
     res.setHeader('Content-Type', 'text/csv');
 
     // Create a read stream from the CSV file and pipe it to the response

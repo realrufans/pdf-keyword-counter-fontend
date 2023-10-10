@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": " next dev",
+    "dev": "start next dev && nodemon pages/api/pdfProcessor.js",
     "api": "node pages/api/pdfProcessor.js",
     "build": "next build",
     "start": "next start",

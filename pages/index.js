@@ -1,13 +1,12 @@
 // pages/index.js
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
 export default function Home() {
   const [pdfFile, setPdfFile] = useState(null);
-  const [keywords, setKeywords] = useState('');
+  const [keywords, setKeywords] = useState("");
   const [processing, setProcessing] = useState(false);
-  const [csvFilePath, setCsvFilePath] = useState('');
-
+  const [csvFilePath, setCsvFilePath] = useState("");
 
   const handleFileChange = (e) => {
     setPdfFile(e.target.files[0]);
@@ -18,20 +17,25 @@ export default function Home() {
   };
 
   const handleSubmit = async (e) => {
-   
     e.preventDefault();
     setProcessing(true);
-     console.log('hi')
+    console.log("hi");
     const formData = new FormData();
-    formData.append('pdfFile', pdfFile);
-    formData.append('keywords', keywords.split(','));
+    formData.append("pdfFile", pdfFile);
+    formData.append("keywords", keywords.split(","));
 
     try {
-    const res =  await axios.post('/api/pdfProcessor', formData);
-    setCsvFilePath(res.data.csvFilePath);
+      const baseUrl =
+        process.env.NODE_ENV === "production"
+          ? "https://ptc-delta.vercel.app"
+          : "";
+          console.log(baseUrl)
+      const res = await axios.post(`${baseUrl}/api/pdfProcessor`, formData);
+
+      setCsvFilePath(res.data.csvFilePath);
       setProcessing(false);
     } catch (error) {
-      console.error('Error processing PDF:', error);
+      console.error("Error processing PDF:", error);
       setProcessing(false);
     }
   };
