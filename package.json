@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": " next dev",
-    "serve": "nodemon pages/api/pdfProcessor.js",
+    "api": "node pages/api/pdfProcessor.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

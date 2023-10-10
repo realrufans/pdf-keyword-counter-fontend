@@ -27,7 +27,7 @@ export default function Home() {
     formData.append('keywords', keywords.split(','));
 
     try {
-    const res =  await axios.post('http://localhost:3001/api/process-pdf', formData);
+    const res =  await axios.post('/api/pdfProcessor', formData);
     setCsvFilePath(res.data.csvFilePath);
       setProcessing(false);
     } catch (error) {

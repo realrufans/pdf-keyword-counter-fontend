@@ -32,7 +32,7 @@ app.get("/api/pro", (r, re) => {
   });
 });
 
-app.post('/api/process-pdf', upload.single('pdfFile'), async (req, res) => {
+app.post('/api/pdfProcessor', upload.single('pdfFile'), async (req, res) => {
     try {
       let { keywords } = req.body;
       const pdfFile = req.file.buffer;
