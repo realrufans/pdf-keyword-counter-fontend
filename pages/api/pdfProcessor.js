@@ -25,12 +25,7 @@ const upload = multer({ storage });
 // Use the cors middleware before defining your routes
 app.use(cors());
 
-app.get("/api/pro", (r, re) => {
-    console.log('hi')
-  re.status(200).json({
-    message: "hi",
-  });
-});
+ 
 
 app.post('/api/pdfProcessor', upload.single('pdfFile'), async (req, res) => {
     try {

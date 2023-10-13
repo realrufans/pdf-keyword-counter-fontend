@@ -23,20 +23,53 @@ export default function Home() {
     const formData = new FormData();
     formData.append("pdfFile", pdfFile);
     formData.append("keywords", keywords.split(","));
-
+ 
     try {
-      const baseUrl =
-        process.env.NODE_ENV === "production"
-          ? "https://ptc-delta.vercel.app"
-          : "";
-          console.log(baseUrl)
-      const res = await axios.post(`${baseUrl}/api/pdfProcessor`, formData);
-
-      setCsvFilePath(res.data.csvFilePath);
+      const res = await axios.post(
+        `https://pdf-keyword-counter.vercel.app/pdf/processPdf`,
+        formData
+      );
+      console.log(res.data);
+      setCsvFilePath(res.data.message);
       setProcessing(false);
     } catch (error) {
       console.error("Error processing PDF:", error);
       setProcessing(false);
+    }
+  };
+
+  const handleCsvDownload = async () => {
+    try {
+      const res = await axios.get(
+        "https://pdf-keyword-counter.vercel.app/csv/download",
+        {
+          responseType: "blob",
+        }
+      );
+
+      const csvBlob = new Blob([res.data], {
+        type: "text/csv",
+      });
+      
+      const downloadDate = new Date().toLocaleString().replace(/:/g, "-");
+      
+      // Create a download link
+      const url = URL.createObjectURL(csvBlob);
+      const a = document.createElement("a");
+      
+      a.href = url;
+      a.download = `Result_${downloadDate}.csv`;
+      
+      // Trigger a click event to initiate the download
+      a.style.display = "none"; // Hide the link
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      // Clean up by revoking the object URL
+      URL.revokeObjectURL(url);
+      
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -71,9 +104,7 @@ export default function Home() {
       {csvFilePath && (
         <div>
           <p>CSV file is ready for download:</p>
-          <a href="/api/download-csv" download>
-            Download CSV
-          </a>
+          <button onClick={handleCsvDownload}>Download </button>
         </div>
       )}
     </div>
