@@ -37,7 +37,7 @@ export default function Home() {
 
     try {
       const res = await axios.post(
-        `https://pdf-keyword-counter.vercel.app/pdf/processPdf`,
+        "https://pdf-keyword-counter.vercel.app/pdf/processPdf",
         formData
       );
       setCsvFilePath(res.data.message);
@@ -45,7 +45,7 @@ export default function Home() {
       setProcessing(false);
     } catch (error) {
       console.error("Error processing PDF:", error);
-      if (error.response.data) {
+      if (error.response) {
         setProcessing(false);
         console.log(error.response.data.error);
         return Toastify("e", error.response.data.error);
@@ -189,7 +189,7 @@ export default function Home() {
         </article>
         <footer className="text-xs text-center my-10">
           Made with <span className="text-blue-600">❤️</span> by{" "}
-          <Link href="https://github.com/realrufans/realrufans">
+          <Link href="https://www.metonj.dev">
             <span className="text-blue-600">Emetonjo Solomon</span>
           </Link>
         </footer>
