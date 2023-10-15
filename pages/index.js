@@ -99,7 +99,7 @@ export default function Home() {
       <main className="container mx-auto max-w-screen-lg  border-red-100   ">
         <div className="my-10 text-center">
           <h1 className="text-3xl font-semibold text-gray-700 ">
-            PDF Keyword to Analyzer
+            PDF Keyword Analyzer
           </h1>
           <p className="text-base text-gray-600">
             Perform a comprehensive keyword analysis on your PDF documents to
